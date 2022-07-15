@@ -7,7 +7,7 @@ import model.*;
 public class LoginDAO {
 	
 	public static Connection getConn() throws SQLException {
-		Connection connection = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\Ivonete Tecla Gomes\\eclipse-workspace\\Sistema De Vendas\\src\\main\\java\\dataBase\\loginDB.db");
+		Connection connection = DriverManager.getConnection("jdbc:sqlite:src\\main\\java\\dataBase\\loginDB.db");
 		return connection;
 	}
 	

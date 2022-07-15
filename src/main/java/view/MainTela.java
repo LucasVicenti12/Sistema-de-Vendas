@@ -15,8 +15,13 @@ public class MainTela {
 	private static JPasswordField pswSenha;
 
 	public static void main(String[] args) {
+		Toolkit kit = Toolkit.getDefaultToolkit();
+		Dimension dimension = kit.getScreenSize();
+		int comprimento = dimension.width;
+		int altura = dimension.height;
+		
 		final JFrame frame = new JFrame("Tela de Login");
-		frame.setLocationRelativeTo(null);
+		frame.setLocation(comprimento/3, altura/3);
 		frame.setResizable(false);
 		frame.setSize(300,350);
 		frame.setVisible(true);

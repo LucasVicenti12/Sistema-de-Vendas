@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.SystemColor;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -12,6 +13,8 @@ import javax.swing.JOptionPane;
 
 import java.awt.Font;
 import java.awt.Color;
+import java.awt.Dimension;
+
 import javax.swing.JTextField;
 
 import controller.LoginDAO;
@@ -32,8 +35,13 @@ public class CadastrarTela {
 	 * @wbp.parser.entryPoint
 	 */
 	public void iniciarTela(){
+		Toolkit kit = Toolkit.getDefaultToolkit();
+		Dimension dimension = kit.getScreenSize();
+		int comprimento = dimension.width;
+		int altura = dimension.height;
+		
 		final JFrame frame = new JFrame();
-		frame.setLocationRelativeTo(null);
+		frame.setLocation(comprimento/3, altura/3);
 		frame.setSize(300, 400);
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
