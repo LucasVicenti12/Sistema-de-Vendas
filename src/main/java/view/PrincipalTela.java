@@ -7,6 +7,8 @@ import model.Login;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class PrincipalTela {
 	/**
@@ -20,19 +22,14 @@ public class PrincipalTela {
 		frame.setSize(screenSize.width, screenSize.height);
 		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
 		JMenuBar menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);
-		
 		JMenu menuPerfil = new JMenu("Perfil");
 		menuBar.add(menuPerfil);
-		
 		JMenuItem perfil = new JMenuItem("Ver meu perfil");
 		menuPerfil.add(perfil);
-		
 		JMenuItem recibos = new JMenuItem("Recibos");
 		menuPerfil.add(recibos);
-		
 		JMenuItem sair = new JMenuItem("Sair");
 		
 		ActionListener exit = new ActionListener() {
@@ -45,54 +42,88 @@ public class PrincipalTela {
 		};
 		sair.addActionListener(exit);
 		menuPerfil.add(sair);
+		frame.getContentPane().setLayout(null);
+		
+		JLabel lblBemVindo = new JLabel("Olá " + login.getNome() + ", seja muito(a) bem vindo(a)!");
+		lblBemVindo.setBounds(97, 50, 1350, 55);
+		frame.getContentPane().add(lblBemVindo);
+		lblBemVindo.setForeground(SystemColor.controlDkShadow);
+		lblBemVindo.setFont(new Font("Arial Black", Font.PLAIN, 24));
 		
 		JPanel panel = new JPanel();
-		panel.setBackground(SystemColor.inactiveCaption);
-		frame.getContentPane().add(panel, BorderLayout.WEST);
-		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[]{41, 209, 0};
-		gbl_panel.rowHeights = new int[]{76, 0, 61, 69, 78, 82, 0, 0, 0, 0, 0};
-		gbl_panel.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
-		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		panel.setLayout(gbl_panel);
+		panel.setBackground(SystemColor.activeCaption);
+		panel.setBounds(0, 0, 1368, 156);
+		frame.getContentPane().add(panel);
 		
-		JLabel lblBemVindo = new JLabel("Olá " + login.getNome());
-		lblBemVindo.setForeground(SystemColor.controlDkShadow);
-		lblBemVindo.setFont(new Font("Arial Black", Font.PLAIN, 18));
-		GridBagConstraints gbc_lblBemVindo = new GridBagConstraints();
-		gbc_lblBemVindo.gridwidth = 2;
-		gbc_lblBemVindo.insets = new Insets(0, 0, 5, 0);
-		gbc_lblBemVindo.gridx = 0;
-		gbc_lblBemVindo.gridy = 1;
-		panel.add(lblBemVindo, gbc_lblBemVindo);
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(SystemColor.inactiveCaptionBorder);
+		panel_1.setBounds(78, 239, 1197, 330);
+		frame.getContentPane().add(panel_1);
 		
-		JButton btnCadProduto = new JButton("Cadastrar Produto");
-		GridBagConstraints gbc_btnCadProduto = new GridBagConstraints();
-		gbc_btnCadProduto.anchor = GridBagConstraints.WEST;
-		gbc_btnCadProduto.insets = new Insets(0, 0, 5, 0);
-		gbc_btnCadProduto.gridx = 1;
-		gbc_btnCadProduto.gridy = 3;
-		panel.add(btnCadProduto, gbc_btnCadProduto);
+		JPopupMenu popupMenu = new JPopupMenu();
+		addPopup(panel_1, popupMenu);
+		
+		JMenuItem menuAdicionarProd = new JMenuItem("Adicionar Produto");
+		
+		ActionListener addProd = new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				AdicionarProdutoTela addProdT = new AdicionarProdutoTela();
+				addProdT.iniciarTela();
+			}
+			
+		};
+		menuAdicionarProd.addActionListener(addProd);
+		popupMenu.add(menuAdicionarProd);
+		panel_1.setLayout(null);
+		
+		JMenu mnNewMenu = new JMenu("Banana");
+		mnNewMenu.setBounds(0, 0, 115, 26);
+		panel_1.add(mnNewMenu);
+		
+		JMenuItem mntmNewMenuItem = new JMenuItem("Editar");
+		mnNewMenu.add(mntmNewMenuItem);
+		
+		JLabel lblProdutos = new JLabel("Produtos");
+		lblProdutos.setForeground(SystemColor.controlDkShadow);
+		lblProdutos.setFont(new Font("Arial Black", Font.PLAIN, 24));
+		lblProdutos.setBounds(78, 173, 629, 55);
+		frame.getContentPane().add(lblProdutos);
+		
+		JLabel lblVenda = new JLabel("Vendas");
+		lblVenda.setForeground(SystemColor.controlDkShadow);
+		lblVenda.setFont(new Font("Arial Black", Font.PLAIN, 24));
+		lblVenda.setBounds(78, 591, 276, 55);
+		frame.getContentPane().add(lblVenda);
 		
 		JButton btnCadVenda = new JButton("Cadastrar Venda");
-		btnCadVenda.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		btnCadVenda.setBounds(364, 608, 181, 32);
+		frame.getContentPane().add(btnCadVenda);
+		
+		JButton btnExtornarVenda = new JButton("Extornar Venda");
+		btnExtornarVenda.setBounds(637, 608, 181, 32);
+		frame.getContentPane().add(btnExtornarVenda);
+		
+		JLabel lblNewLabel = new JLabel("Sistema feito por Lucas Vicenti");
+		lblNewLabel.setBounds(1156, 657, 184, 14);
+		frame.getContentPane().add(lblNewLabel);
+	}
+	private static void addPopup(Component component, final JPopupMenu popup) {
+		component.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
+				if (e.isPopupTrigger()) {
+					showMenu(e);
+				}
+			}
+			public void mouseReleased(MouseEvent e) {
+				if (e.isPopupTrigger()) {
+					showMenu(e);
+				}
+			}
+			private void showMenu(MouseEvent e) {
+				popup.show(e.getComponent(), e.getX(), e.getY());
 			}
 		});
-		GridBagConstraints gbc_btnCadVenda = new GridBagConstraints();
-		gbc_btnCadVenda.anchor = GridBagConstraints.WEST;
-		gbc_btnCadVenda.insets = new Insets(0, 0, 5, 0);
-		gbc_btnCadVenda.gridx = 1;
-		gbc_btnCadVenda.gridy = 4;
-		panel.add(btnCadVenda, gbc_btnCadVenda);
-		
-		JButton btnVerProdutos = new JButton("Ver Produtos");
-		GridBagConstraints gbc_btnVerProdutos = new GridBagConstraints();
-		gbc_btnVerProdutos.anchor = GridBagConstraints.WEST;
-		gbc_btnVerProdutos.gridheight = 2;
-		gbc_btnVerProdutos.insets = new Insets(0, 0, 5, 0);
-		gbc_btnVerProdutos.gridx = 1;
-		gbc_btnVerProdutos.gridy = 5;
-		panel.add(btnVerProdutos, gbc_btnVerProdutos);
 	}
 }
