@@ -81,15 +81,16 @@ public class AdicionarProdutoTela {
 				
 				try {
 					nome = txtNome.getText();
-					quant = Integer.parseInt(txtNome.getText());
+					quant = Integer.parseInt(txtQuant.getText());
 					valorUnitario = Integer.parseInt(txtValorUnitario.getText());
 					
-					if (nome.isEmpty() || txtNome.getText().isEmpty() || txtValorUnitario.getText().isEmpty()) {
+					if (nome.isEmpty() || txtQuant.getText().isEmpty() || txtValorUnitario.getText().isEmpty()) {
 						JOptionPane.showMessageDialog(null, "Faltam dados!");
 					}else {
 						ProdutoDAO dao = new ProdutoDAO();
 						dao.cadastrarProduto(new Produto(nome, quant, valorUnitario));
 						JOptionPane.showMessageDialog(null, "Produto Salvo com Sucesso!");
+						System.out.println(dao.listaProdutos());
 						frame.setVisible(false);
 					}
 				} catch (Exception e2) {

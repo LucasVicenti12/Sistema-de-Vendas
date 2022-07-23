@@ -78,12 +78,14 @@ public class PrincipalTela {
 		popupMenu.add(menuAdicionarProd);
 		panel_1.setLayout(null);
 		
-		JMenu mnNewMenu = new JMenu("Banana");
-		mnNewMenu.setBounds(0, 0, 115, 26);
-		panel_1.add(mnNewMenu);
+		JMenu menuProduto = new JMenu("Banana");
+		menuProduto.setBounds(0, 0, 115, 26);
 		
-		JMenuItem mntmNewMenuItem = new JMenuItem("Editar");
-		mnNewMenu.add(mntmNewMenuItem);
+		
+		panel_1.add(menuProduto);
+		
+		JMenuItem editarProduto = new JMenuItem("Editar");
+		menuProduto.add(editarProduto);
 		
 		JLabel lblProdutos = new JLabel("Produtos");
 		lblProdutos.setForeground(SystemColor.controlDkShadow);

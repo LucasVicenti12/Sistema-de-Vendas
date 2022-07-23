@@ -1,6 +1,7 @@
 package controller;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 import model.Produto;
 
@@ -11,7 +12,7 @@ public class ProdutoDAO {
 	}
 	public void cadastrarProduto(Produto prod) throws SQLException {
 		Statement sts = getConn().createStatement();
-		sts.execute("CREATE TABLE IF NOT EXISTS produto(id INTEGER AUTO_INCREMENT PRIMARY KEY NOT NULL, nome VARCHAR(45) NULL, quantidade INTEGER NULL, valor_unitario INTEGER NULL)");
+		sts.execute("CREATE TABLE IF NOT EXISTS produto(id INTEGER AUTO_INCREMENT PRIMARY KEY NOT NULL, nome TEXT NULL, quantidade INTEGER NULL, valor_unitario INTEGER NULL)");
 		try {
 			Connection con = getConn();
 			PreparedStatement pr = con.prepareStatement("INSERT INTO produto VALUES(null, ?, ?, ?)");
@@ -25,5 +26,17 @@ public class ProdutoDAO {
 			e.printStackTrace();
 			System.out.println(e);
 		}
+	}
+	
+	public ArrayList<Produto> listaProdutos() throws SQLException {
+		Statement sts = getConn().createStatement();
+		ResultSet rs = sts.executeQuery("SELECT * FROM produto");	
+		
+		ArrayList<Produto> produtos = new ArrayList<>();
+		do {
+			produtos.add(new Produto(rs.getString(1), rs.getInt(2), rs.getInt(3)));
+		}while(rs.next());
+		
+		return produtos;
 	}
 }
